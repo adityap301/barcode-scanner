@@ -11,8 +11,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.zxing.Result;
@@ -131,6 +133,7 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
     @Override
     public void handleResult(Result result) {
         final String scanResult = result.getText();
+//        Log.i(scanResult);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Scan Result");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -149,8 +152,10 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
         builder.setNeutralButton("Visit", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(scanResult));
+                // Hard-coded URL for testing purposes
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://google.com"));
                 startActivity(browserIntent);
+//                Log.i("Error: " + scanResult);
             }
         });
 
